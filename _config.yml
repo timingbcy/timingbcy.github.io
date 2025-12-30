@@ -3,11 +3,11 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Between's Blog
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
+author: Between
 language: en
 timezone: ''
 
@@ -96,9 +96,15 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: landscape
+theme: magzine
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: ''
+  type: git
+  # github_pat_11B4DNQKY0I9CvJy2VL63c_
+  # repo: BOhMORJOLWbQjWcFbxSRMVTCINt3Qrf9bB0ptWgg9oDT7QVBZYWJql0xPAf@github.com/timingbcy/timingbcy.github.io.git
+  # repository: git@github.com/timingbcy/timingbcy.github.io.git
+  # repo: https://github.com/timingbcy/timingbcy.github.io.git
+  repo: git@github.com:timingbcy/timingbcy.github.io.git
+  branch: main
