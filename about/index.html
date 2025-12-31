@@ -1,0 +1,402 @@
+<!DOCTYPE html><html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="theme-color" content="#1a1a1a"><meta name="msapplication-navbutton-color" content="#1a1a1a"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><title>Between's Blog</title><script>(function() {
+  // 尽早应用暗色模式，防止闪烁
+  var savedDarkMode = localStorage.getItem('darkMode') === 'true';
+  if (savedDarkMode) {
+    document.documentElement.classList.add('dark-mode');
+  }
+})();
+</script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:wght@400;500;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script><link rel="icon" href="/images/wumai.ico">
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="/css/tags.css">
+
+<link rel="stylesheet" href="/css/categories.css">
+
+<link rel="stylesheet" href="/css/categories-accordion.css">
+
+<link rel="stylesheet" href="/css/highlight.css">
+
+<link rel="stylesheet" href="/css/toc.css">
+
+<link rel="stylesheet" href="/css/image-zoom.css">
+
+<link rel="stylesheet" href="/css/share.css">
+
+<link rel="stylesheet" href="/css/mobile-nav.css">
+
+<link rel="stylesheet" href="/css/search.css">
+
+<link rel="stylesheet" href="/css/scrollbar.css">
+
+<link rel="stylesheet" href="/css/timeline.css">
+
+<link rel="stylesheet" href="/css/animations.css">
+
+<link rel="stylesheet" href="/css/ai-theme.css">
+
+<link rel="stylesheet" href="/css/loading-animation.css">
+<!-- 条件加载关于页面样式-->
+<link rel="stylesheet" href="/css/about.css">
+<style>:root {
+  --primary-color: #1a1a1a;
+  --secondary-color: #666666;
+  --accent-color: #ff6b6b;
+  --background-color: #ffffff;
+  --text-color: #333333;
+  --overlay-color: rgba(0, 0, 0, 0.7);
+  --tag-background-color: #ffffff;
+  --card-background-color: #ffffff;
+}
+</style><link rel="stylesheet" href="https://cdn1.tianli0.top/gh/qxchuckle/Post-Summary-AI/chuckle-post-ai.css"><meta name="generator" content="Hexo 8.1.1"></head><body><div id="app"><header class="header navbar-bubble"><nav class="nav"><div class="nav-container"><div class="nav-logo"><a href="/"><span class="nav-title">Between's Blog</span></a></div><div class="nav-menu"><a class="nav-item" href="/">首页</a><a class="nav-item active" href="/about/">关于</a><a class="nav-item" href="/archives/">归档</a><a class="nav-item" href="/categories/">分类</a><a class="nav-item" href="/tags/">标签</a><div class="nav-item has-submenu"><span class="nav-link">网站</span><div class="submenu"><a class="submenu-item" target="_blank" rel="noopener" href="https://example.com">示例网站</a></div></div><!-- 搜索按钮--><div class="search-toggle"><i class="fas fa-search"></i></div></div><div class="nav-toggle"><span></span><span></span><span></span></div></div></nav></header><div class="search-overlay"><div class="search-container"><div class="search-form"><input class="search-input" type="text" placeholder="搜索文章..."/><div class="search-close">×</div></div><div class="search-results"></div></div></div><main class="main"><main class="about-page"><div class="about-container"><div class="about-header"><div class="about-avatar"><img src="/images/hit.gif" alt="个人头像"/></div><h1 class="about-name">可不敢白吃呀</h1><p class="about-bio">来到了没有知识的荒原</p></div><div class="interests-showcase"></div><div class="about-details"><div class="about-section"><h2>关于我</h2><div class="profile-info"><div class="profile-item"><div class="profile-label">称呼</div><div class="profile-value">白炽雅</div></div></div></div><div class="about-section"><h2>兴趣点</h2><div class="bio-content"><p>吃喝玩乐</p></div></div><div class="about-section"><h2>联系方式</h2><div class="contact-info"><a class="contact-item" href="https://bilibili.com" target="_blank" rel="noopener"><i class="fas fa-tv"></i><div class="contact-detail"><div class="contact-label">哔哩哔哩</div><div class="contact-value">null</div></div></a></div></div></div></div></main><!-- 添加交互式卡片样式--><style>.interests-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 25px;
+  margin: 40px 0;
+  position: relative;
+}
+
+.interest-card {
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.interest-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+// 不同卡片的大小
+.interest-life {
+  width: 320px;
+  height: 380px;
+}
+
+.interest-art {
+  width: 280px;
+  height: 340px;
+}
+
+.interest-sport {
+  width: 300px;
+  height: 360px;
+}
+
+.interest-create {
+  width: 340px;
+  height: 400px;
+}
+
+// 卡片背景
+.card-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.interest-life .card-bg {
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+}
+
+.interest-art .card-bg {
+  background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%);
+}
+
+.interest-sport .card-bg {
+  background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
+}
+
+.interest-create .card-bg {
+  background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%);
+}
+
+// 卡片内容
+.card-content {
+  padding: 30px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.interest-card:hover .card-content {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.card-content h3 {
+  font-size: 2.5rem;
+  margin: 0 0 15px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.card-description {
+  margin-bottom: 20px;
+}
+
+.card-description p {
+  font-size: 1.1rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.card-icon {
+  font-size: 2rem;
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
+.card-hover-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px 30px;
+  background: rgba(0, 0, 0, 0.7);
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+}
+
+.interest-card:hover .card-hover-content {
+  transform: translateY(0);
+}
+
+.card-hover-content p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+// 其他部分样式
+.about-details {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about-section {
+  margin-bottom: 30px;
+}
+
+.about-section h2 {
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.profile-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.profile-item {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.profile-label {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.profile-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.bio-content {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 200px;
+}
+
+.contact-item:hover {
+  background: #f0f0f0;
+  transform: translateY(-3px);
+}
+
+.contact-item i {
+  font-size: 1.5rem;
+  margin-right: 15px;
+  color: #555;
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-label {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.contact-value {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.about-quote {
+  max-width: 800px;
+  margin: 40px auto 20px;
+  text-align: center;
+}
+
+.about-quote blockquote {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #666;
+  margin: 0;
+  padding: 0 20px;
+  position: relative;
+}
+
+.about-quote blockquote:before {
+  content: '"';
+  font-size: 3rem;
+  color: #ddd;
+  position: absolute;
+  left: -10px;
+  top: -10px;
+}
+
+.about-quote blockquote:after {
+  content: '"';
+  font-size: 3rem;
+  color: #ddd;
+  position: absolute;
+  right: -10px;
+  bottom: -30px;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .interests-showcase {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .interest-card {
+    width: 100% !important;
+    max-width: 350px;
+    height: 300px !important;
+  }
+
+  .profile-info {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info {
+    flex-direction: column;
+  }
+}</style></main><footer class="footer"><div class="footer-bottom"><div class="footer-copyright"><p>© 2025 Between's Blog</p></div><!-- Footer centered image with link--></div></footer></div><!-- 立即应用暗色模式，避免页面闪烁--><script>(function() {
+  // 检查本地存储中的暗色模式设置
+  const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+  // 如果设置为暗色模式，立即应用到body
+  if (savedDarkMode) {
+    document.body.classList.add('dark-mode');
+  }
+
+  // 防止页面闪烁，在DOM加载完成前设置一个初始类
+  document.documentElement.style.visibility = 'hidden';
+  document.addEventListener('DOMContentLoaded', function() {
+    document.documentElement.style.visibility = 'visible';
+  });
+})();
+</script>
+<script src="/js/main.js"></script>
+
+<script src="/js/tags.js"></script>
+
+<script src="/js/categories-accordion.js"></script>
+
+<script src="/js/highlight.js"></script>
+
+<script src="/js/load-more.js"></script>
+
+<script src="/js/header-scroll.js"></script>
+
+<script src="/js/toc.js"></script>
+
+<script src="/js/image-zoom.js"></script>
+
+<script src="/js/share.js"></script>
+
+<script src="/js/search.js"></script>
+
+<script src="/js/hide-inline-interaction.js"></script>
+
+<script src="/js/hide-toggle-interaction.js"></script>
+
+<script src="/js/dark-mode-sync.js"></script>
+
+<script src="/js/animations.js"></script>
+
+<script src="/js/ai-theme.js"></script>
+
+<script src="/js/loading-animation.js"></script>
+<script>window.theme = {
+  features: !JSON.stringify(theme.features)},
+  code_block: !JSON.stringify(theme.code_block)},
+  ai_summary: !JSON.stringify(theme.ai_summary)},
+  categories: !JSON.stringify(theme.categories)}
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+  if (window.mermaid) {
+    var mermaidOptions = !JSON.stringify(theme.mermaid.options || {})};
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: '#theme.mermaid.theme || "default"}',
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: true,
+        curve: 'basis'
+      },
+      ...mermaidOptions
+    });
+  }
+});
+</script><script src="/js/ai.js"></script><script src="/js/postai.js"></script></body></html>
