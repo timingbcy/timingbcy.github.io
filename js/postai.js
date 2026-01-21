@@ -230,25 +230,20 @@ function ChucklePostAI(AI_option) {
             controller = new AbortController();
             signal = controller.signal;
 
-            // 使用 CORS 代理服务（推荐）
-            // 这是一个公开的 CORS 代理，会转发请求到 SiliconFlow
-            const corsProxy = "https://cors-anywhere.herokuapp.com/";
-            const apiUrl = corsProxy + "https://api.siliconflow.cn/v1/chat/completions";
-            
-            console.log('[AI Client] 准备调用 SiliconFlow API');
+            // 使用自定义 Cloudflare Worker 代理
+            const apiUrl = "https://proxy.bianchenyu1995.workers.dev/";
+
+            console.log('[AI Client] 准备调用 Cloudflare Worker 代理');
 
             try {
                 const response = await fetch(apiUrl, {
                     signal: signal,
                     method: "POST",
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer sk-xrmpgnilmazuarlgeyxiqypnnbnhcfwtnhncryzjuogrrsza`
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify({
-                        model: "deepseek-ai/DeepSeek-V3.2-Exp",
-                        messages: [{ "role": "user", "content": prompt }],
-                        stream: false
+                        prompt: prompt
                     })
                 });
 
