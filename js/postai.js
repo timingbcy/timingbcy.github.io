@@ -49,9 +49,9 @@ function ChucklePostAI(AI_option) {
         };
 
         const interface = {
-            name: "然-AI",
-            introduce: "我是文章辅助AI: 然-AI，一个基于deepseek的强大语言模型，有什么可以帮到您？😊",
-            version: "deepseek",
+            name: "timing-AI",
+            introduce: "我是文章辅助AI: timing-AI，其实就是个免费的deepseek接口，有什么可以帮到您？😊",
+            version: "SiliconFlow",
             button: ["介绍自己😎", "来点灵感💡", "生成AI简介🤖"],
             ...AI_option.interface
         }
@@ -230,8 +230,12 @@ function ChucklePostAI(AI_option) {
             controller = new AbortController();
             signal = controller.signal;
 
-            // const apiUrl = "https://api.deepseek.com/v1/chat/completions";
-            const apiUrl = "https://free.v36.cm";
+            // 使用 CORS 代理服务（推荐）
+            // 这是一个公开的 CORS 代理，会转发请求到 SiliconFlow
+            const corsProxy = "https://cors-anywhere.herokuapp.com/";
+            const apiUrl = corsProxy + "https://api.siliconflow.cn/v1/chat/completions";
+            
+            console.log('[AI Client] 准备调用 SiliconFlow API');
 
             try {
                 const response = await fetch(apiUrl, {
@@ -239,32 +243,45 @@ function ChucklePostAI(AI_option) {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${apiKey}`
+                        "Authorization": `Bearer sk-xrmpgnilmazuarlgeyxiqypnnbnhcfwtnhncryzjuogrrsza`
                     },
                     body: JSON.stringify({
-                        model: "deepseek-chat",
+                        model: "deepseek-ai/DeepSeek-V3.2-Exp",
                         messages: [{ "role": "user", "content": prompt }],
+                        stream: false
                     })
                 });
+
+                console.log('[AI Client] API 响应状态:', response.status);
 
                 completeGenerate = true;
 
                 if (response.status === 429) {
+                    console.log('[AI Client] 请求过于频繁');
                     startAI('请求过于频繁，请稍后再请求AI。');
                     return null;
                 }
 
                 if (!response.ok) {
-                    throw new Error('Response not ok');
+                    console.error('[AI Client] 响应错误，状态码:', response.status, response.statusText);
+                    throw new Error(`Response not ok: ${response.status} ${response.statusText}`);
                 }
 
                 const data = await response.json();
+                console.log('[AI Client] 收到数据:', data);
+                
+                if (data.error) {
+                    console.error('[AI Client] API 返回错误:', data.error);
+                    throw new Error(data.error);
+                }
+                
                 return data.choices[0].message.content;
             } catch (error) {
                 if (error.name === "AbortError") {
                     // 请求被中止
+                    console.log('[AI Client] 请求被中止');
                 } else {
-                    console.error('Error occurred:', error);
+                    console.error('[AI Client] 捕获异常:', error);
                     startAI(`${interface.name}请求AI出错了，请稍后再试。`);
                 }
                 completeGenerate = true;
