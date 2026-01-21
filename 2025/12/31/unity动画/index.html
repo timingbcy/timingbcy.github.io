@@ -421,17 +421,17 @@ window.tocConfig = {
 
 <script src="/js/loading-animation.js"></script>
 <script>window.theme = {
-  features: !JSON.stringify(theme.features)},
-  code_block: !JSON.stringify(theme.code_block)},
-  ai_summary: !JSON.stringify(theme.ai_summary)},
-  categories: !JSON.stringify(theme.categories)}
+  features: JSON.stringify(theme.features),
+  code_block: JSON.stringify(theme.code_block),
+  ai_summary: JSON.stringify(theme.ai_summary),
+  categories: JSON.stringify(theme.categories)
 };
 </script><script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
   if (window.mermaid) {
-    var mermaidOptions = !JSON.stringify(theme.mermaid.options || {})};
+    var mermaidOptions = JSON.stringify(theme.mermaid.options || {});
     mermaid.initialize({
       startOnLoad: true,
-      theme: '#theme.mermaid.theme || "default"}',
+      theme: theme.mermaid.theme || "default",
       flowchart: {
         useMaxWidth: true,
         htmlLabels: true,
@@ -441,7 +441,7 @@ window.tocConfig = {
     });
   }
 });
-</script></body><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+</script><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
   // 配置 marked.js
   if (window.marked) {
     marked.setOptions({
@@ -454,12 +454,4 @@ window.tocConfig = {
     });
   }
 });
-
-//- Custom scripts
-if theme.custom_scripts
-  != theme.custom_scripts
-
-//- Inject bottom
-if theme.inject && theme.inject.bottom
-  each item in theme.inject.bottom
-    != item</script></html>
+</script><script src="/js/ai.js"></script><script src="/js/postai.js"></script></body></html>
