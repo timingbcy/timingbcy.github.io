@@ -118,4 +118,25 @@ Front-matter 格式在文章的开头，需要使用 YAML 格式设置元数据�
     });
   }
 });
-</script><script src="/js/ai.js"></script><script src="/js/postai.js"></script></body></html>
+</script></body><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+  // 配置 marked.js
+  if (window.marked) {
+    marked.setOptions({
+      breaks: true,  // 支持换行符
+      gfm: true,     // GitHub 风格 Markdown
+      highlight: function(code, lang) {
+        // 如果有代码高亮库，可以在这里集成
+        return code;
+      }
+    });
+  }
+});
+
+//- Custom scripts
+if theme.custom_scripts
+  != theme.custom_scripts
+
+//- Inject bottom
+if theme.inject && theme.inject.bottom
+  each item in theme.inject.bottom
+    != item</script></html>
