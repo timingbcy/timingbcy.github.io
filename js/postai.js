@@ -71,6 +71,10 @@ function ChucklePostAI(AI_option) {
         <div class="ai-tag">${interface.version}</div>
       </div>
       <div class="ai-explanation">${interface.name}初始化中...</div>
+      <div class="ai-input-box">
+        <input type="text" class="ai-input" placeholder="输入你想问的问题..." autocomplete="off">
+        <button class="ai-send-btn">发送</button>
+      </div>
       <div class="ai-btn-box">
         <div class="ai-btn-item">${interface.button[0]}</div>
         <div class="ai-btn-item">${interface.button[1]}</div>
@@ -444,7 +448,7 @@ function ChucklePostAI(AI_option) {
             if (document.getElementById(styleId)) { return; }
             const styleElement = document.createElement('style');
             styleElement.id = styleId;
-            styleElement.textContent = AI_option.css || `:root{--ai-font-color:#353535;--ai-post-bg:#f1f3f8;--ai-content-bg:#fff;--ai-content-border:1px solid #e3e8f7;--ai-border:1px solid #e3e8f7bd;--ai-tag-bg:rgba(48,52,63,0.80);--ai-cursor:#333;--ai-btn-bg:rgba(48,52,63,0.75);--ai-title-color:#4c4948;--ai-btn-color:#fff;}[data-theme=dark],.theme-dark,body.dark,body.dark-theme{--ai-font-color:rgba(255,255,255,0.9);--ai-post-bg:#30343f;--ai-content-bg:#1d1e22;--ai-content-border:1px solid #42444a;--ai-border:1px solid #3d3d3f;--ai-tag-bg:#1d1e22;--ai-cursor:rgb(255,255,255,0.9);--ai-btn-bg:#1d1e22;--ai-title-color:rgba(255,255,255,0.86);--ai-btn-color:rgb(255,255,255,0.9);}#post-ai.post-ai{background:var(--ai-post-bg);border-radius:12px;padding:10px 12px 11px;line-height:1.3;border:var(--ai-border);margin-top:10px;margin-bottom:6px;transition:all 0.3s;}#post-ai .ai-title{display:flex;color:var(--ai-title-color);border-radius:8px;align-items:center;padding:0 6px;position:relative;}#post-ai .ai-title-text{font-weight:bold;margin-left:8px;font-size:17px;}#post-ai .ai-tag{font-size:12px;background-color:var(--ai-tag-bg);color:var(--ai-btn-color);border-radius:4px;margin-left:auto;line-height:1;padding:4px 5px;border:var(--ai-border);}#post-ai .ai-explanation{margin-top:10px;padding:8px 12px;background:var(--ai-content-bg);border-radius:8px;border:var(--ai-content-border);font-size:18px;line-height:1.4;color:var(--ai-font-color);}#post-ai .ai-cursor{display:inline-block;width:7px;background:var(--ai-cursor);height:16px;margin-bottom:-2px;opacity:0.95;margin-left:3px;transition:all 0.3s;}#post-ai .ai-btn-box{font-size:15.5px;width:100%;display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-btn-item{padding:5px 10px;margin:10px 16px 0px 5px;width:fit-content;line-height:1;background:var(--ai-btn-bg);border:var(--ai-border);color:var(--ai-btn-color);border-radius:6px 6px 6px 0;user-select:none;transition:all 0.3s;cursor:pointer;}#post-ai .ai-btn-item:hover{background:#49b0f5dc;}@media screen and (max-width:768px){#post-ai .ai-btn-box{justify-content:center;}}#post-ai .ai-title>svg{width:21px;height:fit-content;}#post-ai .ai-title>svg path{fill:var(--ai-font-color);}`;
+            styleElement.textContent = AI_option.css || `:root{--ai-font-color:#353535;--ai-post-bg:#f1f3f8;--ai-content-bg:#fff;--ai-content-border:1px solid #e3e8f7;--ai-border:1px solid #e3e8f7bd;--ai-tag-bg:rgba(48,52,63,0.80);--ai-cursor:#333;--ai-btn-bg:rgba(48,52,63,0.75);--ai-title-color:#4c4948;--ai-btn-color:#fff;--ai-input-bg:#fff;--ai-input-border:#e3e8f7;--ai-input-placeholder:#999;}[data-theme=dark],.theme-dark,body.dark,body.dark-theme{--ai-font-color:rgba(255,255,255,0.9);--ai-post-bg:#30343f;--ai-content-bg:#1d1e22;--ai-content-border:1px solid #42444a;--ai-border:1px solid #3d3d3f;--ai-tag-bg:#1d1e22;--ai-cursor:rgb(255,255,255,0.9);--ai-btn-bg:#1d1e22;--ai-title-color:rgba(255,255,255,0.86);--ai-btn-color:rgb(255,255,255,0.9);--ai-input-bg:#2a2d35;--ai-input-border:#42444a;--ai-input-placeholder:rgba(255,255,255,0.5);}#post-ai.post-ai{background:var(--ai-post-bg);border-radius:12px;padding:10px 12px 11px;line-height:1.3;border:var(--ai-border);margin-top:10px;margin-bottom:6px;transition:all 0.3s;}#post-ai .ai-title{display:flex;color:var(--ai-title-color);border-radius:8px;align-items:center;padding:0 6px;position:relative;}#post-ai .ai-title-text{font-weight:bold;margin-left:8px;font-size:17px;}#post-ai .ai-tag{font-size:12px;background-color:var(--ai-tag-bg);color:var(--ai-btn-color);border-radius:4px;margin-left:auto;line-height:1;padding:4px 5px;border:var(--ai-border);}#post-ai .ai-explanation{margin-top:10px;padding:8px 12px;background:var(--ai-content-bg);border-radius:8px;border:var(--ai-content-border);font-size:18px;line-height:1.4;color:var(--ai-font-color);}#post-ai .ai-cursor{display:inline-block;width:7px;background:var(--ai-cursor);height:16px;margin-bottom:-2px;opacity:0.95;margin-left:3px;transition:all 0.3s;}#post-ai .ai-input-box{margin-top:10px;display:flex;gap:8px;}#post-ai .ai-input{flex:1;padding:8px 12px;border:1px solid var(--ai-input-border);border-radius:6px;background:var(--ai-input-bg);color:var(--ai-font-color);font-size:14px;outline:none;transition:all 0.3s;}#post-ai .ai-input:focus{border-color:#49b0f5;}#post-ai .ai-input::placeholder{color:var(--ai-input-placeholder);}#post-ai .ai-send-btn{padding:8px 16px;background:var(--ai-btn-bg);color:var(--ai-btn-color);border:var(--ai-border);border-radius:6px;cursor:pointer;font-size:14px;transition:all 0.3s;user-select:none;}#post-ai .ai-send-btn:hover{background:#49b0f5dc;}#post-ai .ai-send-btn:disabled{opacity:0.5;cursor:not-allowed;}#post-ai .ai-btn-box{font-size:15.5px;width:100%;display:flex;flex-direction:row;flex-wrap:wrap;}#post-ai .ai-btn-item{padding:5px 10px;margin:10px 16px 0px 5px;width:fit-content;line-height:1;background:var(--ai-btn-bg);border:var(--ai-border);color:var(--ai-btn-color);border-radius:6px 6px 6px 0;user-select:none;transition:all 0.3s;cursor:pointer;}#post-ai .ai-btn-item:hover{background:#49b0f5dc;}@media screen and (max-width:768px){#post-ai .ai-btn-box{justify-content:center;}}#post-ai .ai-title>svg{width:21px;height:fit-content;}#post-ai .ai-title>svg path{fill:var(--ai-font-color);}`;
             AI_option.additional_css && (styleElement.textContent += AI_option.additional_css);
             document.head.appendChild(styleElement);
         }
@@ -454,6 +458,42 @@ function ChucklePostAI(AI_option) {
             explanation = document.querySelector('.ai-explanation');
             post_ai = document.querySelector('.post-ai');
             ai_btn_item = document.querySelectorAll('.ai-btn-item');
+
+            // 绑定输入框和发送按钮
+            const aiInput = document.querySelector('.ai-input');
+            const aiSendBtn = document.querySelector('.ai-send-btn');
+
+            // 发送消息函数
+            async function sendUserMessage() {
+                const userMessage = aiInput.value.trim();
+                if (!userMessage) return;
+
+                // 禁用输入和按钮
+                aiInput.disabled = true;
+                aiSendBtn.disabled = true;
+
+                // 调用 AI
+                const response = await getAIResponse(userMessage);
+                if (response) {
+                    startAI(response);
+                }
+
+                // 恢复输入和按钮
+                aiInput.disabled = false;
+                aiSendBtn.disabled = false;
+                aiInput.value = '';
+                aiInput.focus();
+            }
+
+            // 发送按钮点击事件
+            aiSendBtn.addEventListener('click', sendUserMessage);
+
+            // 输入框回车事件
+            aiInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    sendUserMessage();
+                }
+            });
 
             const funArr = [aiIntroduce, aiInspiration, aiGenerateAbstract];
 
