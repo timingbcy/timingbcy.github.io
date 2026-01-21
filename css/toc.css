@@ -27,8 +27,11 @@ pre.mermaid {
   overflow-y: auto;
   align-self: flex-start;
   z-index: 10;
+  background: var(--card-background-color);
   border-right: 1px solid var(--border-color);
-  padding-right: 20px;
+  padding: 20px;
+  border-radius: var(--radius-md);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .toc-container {

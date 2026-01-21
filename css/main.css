@@ -885,7 +885,8 @@ p {
 }
 
 .post-content code {
-  background: var(--background-color);
+  background: #f0f0f0;
+  color: #e06c75;
   padding: 0.125rem 0.25rem;
   border-radius: var(--radius-sm);
   font-family: var(--font-monospace);
@@ -894,7 +895,7 @@ p {
 }
 
 .post-content pre {
-  background: #282c34;
+  background: #1a1e24;
   padding: 0.6rem;
   border-radius: var(--radius-md);
   overflow-x: auto;
@@ -904,6 +905,7 @@ p {
   position: relative;
   color: #abb2bf;
   font-family: var(--font-monospace);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   font-size: 0.9rem;
   line-height: 1.5;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -980,7 +982,7 @@ p {
 /* 代码高亮配色方案 - One Dark 主题 */
 .post-content pre .hljs-comment,
 .post-content pre .hljs-quote {
-  color: #5c6370;
+  color: #7f848e;
   font-style: italic;
 }
 
@@ -1033,7 +1035,7 @@ p {
 }
 
 .post-content pre .hljs-formula {
-  background: #3e4451;
+  background: #2c313a;
 }
 
 .post-content pre .hljs-emphasis {
@@ -1676,6 +1678,369 @@ html {
   padding: 0 var(--content-padding);
   display: flex;
   justify-content: center;
+}
+
+/* ===== Dark Mode Toggle Button ===== */
+.dark-mode-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  background: var(--background-color);
+  border: 1px solid var(--border-color);
+  margin-left: var(--spacing-sm);
+}
+
+.dark-mode-toggle:hover {
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: scale(1.05);
+}
+
+.dark-mode-toggle i {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  transition: color var(--transition-fast);
+}
+
+.dark-mode-toggle:hover i {
+  color: white;
+}
+
+/* ===== Dark Mode ===== */
+.dark-mode {
+  --primary-color: #f0f0f0;
+  --secondary-color: #a0a0a0;
+  --accent-color: #ff8787;
+  --background-color: #1a1a1a;
+  --text-color: #e0e0e0;
+  --border-color: #333333;
+  --tag-background-color: #2a2a2a;
+  --card-background-color: #2a2a2a;
+  --overlay-color: rgba(0, 0, 0, 0.8);
+}
+
+.dark-mode body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.dark-mode .header {
+  background: rgba(26, 26, 26, 0.95);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.dark-mode .header.navbar-bubble .nav-container {
+  background: var(--card-background-color);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .nav-logo {
+  color: var(--text-color);
+}
+
+.dark-mode .nav-item {
+  color: var(--text-color);
+}
+
+.dark-mode .nav-item:hover {
+  color: var(--accent-color);
+}
+
+.dark-mode .post-header {
+  background: var(--background-color);
+}
+
+.dark-mode .post-content {
+  color: var(--text-color);
+}
+
+.dark-mode .post-content h1,
+.dark-mode .post-content h2,
+.dark-mode .post-content h3,
+.dark-mode .post-content h4,
+.dark-mode .post-content h5,
+.dark-mode .post-content h6 {
+  color: var(--primary-color);
+}
+
+.dark-mode .post-content p {
+  color: var(--text-color);
+}
+
+.dark-mode .post-content a {
+  color: var(--accent-color);
+}
+
+.dark-mode .post-content a:hover {
+  color: var(--accent-color);
+  opacity: 0.8;
+}
+
+.dark-mode .post-content code {
+  background: rgba(255, 107, 107, 0.1);
+  color: var(--accent-color);
+}
+
+.dark-mode .post-content pre {
+  background: #2a2a2a;
+  border: 1px solid var(--border-color);
+}
+
+.dark-mode .post-content pre code {
+  background: none;
+  color: #e0e0e0;
+}
+
+.dark-mode .post-content blockquote {
+  background: rgba(255, 107, 107, 0.05);
+  border-left-color: var(--accent-color);
+  color: var(--secondary-color);
+}
+
+.dark-mode .post-content table {
+  background: var(--background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .post-content th,
+.dark-mode .post-content td {
+  border-color: var(--border-color);
+}
+
+.dark-mode .post-content th {
+  background: var(--card-background-color);
+}
+
+.dark-mode .tag {
+  background: var(--tag-background-color);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .tag:hover {
+  background: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.dark-mode .tag-count {
+  background: var(--accent-color);
+  color: white;
+}
+
+.dark-mode .article-card {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .article-card:hover {
+  border-color: var(--accent-color);
+}
+
+.dark-mode .category-card {
+  background: var(--card-background-color);
+  color: var(--text-color);
+}
+
+.dark-mode .archive-post-title {
+  color: var(--text-color);
+}
+
+.dark-mode .archive-post-title a {
+  color: var(--text-color);
+}
+
+.dark-mode .archive-post-title a:hover {
+  color: var(--accent-color);
+}
+
+.dark-mode .post-nav {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .post-nav:hover {
+  border-color: var(--accent-color);
+}
+
+.dark-mode .nav-title {
+  color: var(--text-color);
+}
+
+.dark-mode .post-share {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .share-title {
+  color: var(--text-color);
+}
+
+.dark-mode .share-btn {
+  background: var(--accent-color);
+  color: white;
+}
+
+.dark-mode .share-btn:hover {
+  opacity: 0.8;
+}
+
+.dark-mode .toc-sidebar {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .toc-title {
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .toc-content a {
+  color: var(--secondary-color);
+}
+
+.dark-mode .toc-content a:hover,
+.dark-mode .toc-content a.active {
+  color: var(--accent-color);
+}
+
+/* Dark mode for input elements */
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.dark-mode input:focus,
+.dark-mode textarea:focus,
+.dark-mode select:focus {
+  border-color: var(--accent-color);
+}
+
+/* Dark mode for search */
+.dark-mode .search-container {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .search-input {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+  color: var(--text-color);
+}
+
+.dark-mode .search-input::placeholder {
+  color: var(--secondary-color);
+}
+
+.dark-mode .search-results {
+  background: var(--card-background-color);
+  border-color: var(--border-color);
+}
+
+.dark-mode .search-result-item {
+  border-color: var(--border-color);
+}
+
+.dark-mode .search-result-item:hover {
+  background: rgba(255, 107, 107, 0.05);
+}
+
+.dark-mode .search-result-title {
+  color: var(--text-color);
+}
+
+.dark-mode .search-result-excerpt {
+  color: var(--secondary-color);
+}
+
+/* ===== Post Background Image ===== */
+body.has-post-background {
+  overflow-x: hidden;
+}
+
+/* 背景图层 - 使用伪元素实现 */
+body.has-post-background::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: var(--post-background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -2;
+}
+
+/* 遮罩层 */
+body.has-post-background::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--overlay-color);
+  z-index: -1;
+}
+
+.post-wrapper.has-background {
+  position: relative;
+  z-index: 1;
+}
+
+.post-wrapper.has-background .toc-sidebar {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.post-wrapper.has-background .post-container {
+  position: relative;
+  z-index: 1;
+}
+
+.dark-mode .post-wrapper.has-background .toc-sidebar {
+  background: rgba(26, 26, 26, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.post-wrapper.has-background .post-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .post-wrapper.has-background .post-content {
+  background: rgba(26, 26, 26, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Post container with background */
+.post-wrapper.has-background .post-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  margin: var(--spacing-xl);
+}
+
+.dark-mode .post-wrapper.has-background .post-container {
+  background: rgba(26, 26, 26, 0.9);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .author-card {
