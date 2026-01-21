@@ -463,7 +463,53 @@ function ChucklePostAI(AI_option) {
             const aiInput = document.querySelector('.ai-input');
             const aiSendBtn = document.querySelector('.ai-send-btn');
 
-            // 发送消息函数
+            // 获取文章内容
+            function getArticleContent() {
+                // 尝试获取文章标题
+                const title = document.querySelector('h1, .post-title, .article-title')?.textContent || document.title;
+
+                // 尝试获取文章正文
+                let content = '';
+
+                // 查找文章内容容器
+                const contentSelectors = [
+                    '.post-content',
+                    '.article-content',
+                    '.entry-content',
+                    'article',
+                    '.markdown-body'
+                ];
+
+                for (const selector of contentSelectors) {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        content = element.innerText || element.textContent;
+                        break;
+                    }
+                }
+
+                // 如果没找到，获取整个 body 的文本（排除脚本和样式）
+                if (!content) {
+                    const bodyClone = document.body.cloneNode(true);
+                    // 移除不需要的元素
+                    const elementsToRemove = bodyClone.querySelectorAll('script, style, nav, header, footer, .sidebar, .post-ai');
+                    elementsToRemove.forEach(el => el.remove());
+                    content = bodyClone.innerText || bodyClone.textContent;
+                }
+
+                // 清理内容（移除多余空白）
+                content = content.replace(/\s+/g, ' ').trim();
+
+                // 限制内容长度（避免 token 过多）
+                const maxLength = 3000;
+                if (content.length > maxLength) {
+                    content = content.substring(0, maxLength) + '...(内容已截断)';
+                }
+
+                return { title, content };
+            }
+
+            // 发送消息函数（基于网页内容）
             async function sendUserMessage() {
                 const userMessage = aiInput.value.trim();
                 if (!userMessage) return;
@@ -472,8 +518,23 @@ function ChucklePostAI(AI_option) {
                 aiInput.disabled = true;
                 aiSendBtn.disabled = true;
 
+                // 获取网页内容
+                const { title, content } = getArticleContent();
+
+                // 构造带上下文的 prompt
+                const contextPrompt = `你是一个文章助手，请基于以下文章内容回答用户的问题。
+
+文章标题：${title}
+
+文章内容：
+${content}
+
+用户问题：${userMessage}
+
+请基于文章内容回答，如果文章中没有相关信息，请说明。`;
+
                 // 调用 AI
-                const response = await getAIResponse(userMessage);
+                const response = await getAIResponse(contextPrompt);
                 if (response) {
                     startAI(response);
                 }
