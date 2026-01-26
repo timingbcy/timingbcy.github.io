@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: "deepseek-ai/DeepSeek-V3.2-Exp",
+        model: "deepseek-ai/DeepSeek-R1-0528-Qwen3-8B",
         messages: [{ 
           role: "user", 
           content: prompt 

@@ -35,6 +35,10 @@
 <link rel="stylesheet" href="/css/ai-theme.css">
 
 <link rel="stylesheet" href="/css/loading-animation.css">
+
+<link rel="stylesheet" href="/css/code-mermaid-fold.css">
+
+<link rel="stylesheet" href="/css/mermaid-magnifier.css">
 <!-- 条件加载关于页面样式--><style>:root {
   --primary-color: #1a1a1a;
   --secondary-color: #666666;
@@ -66,22 +70,50 @@
   var input = document.querySelector('.password-input');
   var submit = document.querySelector('.password-submit');
   var error = document.querySelector('.password-error');
-  var content = document.querySelector('.post-content');
-  
+
   // 配置：密码有效期（毫秒）
   // 24小时 = 24 * 60 * 60 * 1000 = 86400000
   // 7天 = 7 * 24 * 60 * 60 * 1000 = 604800000
   var EXPIRY_TIME = 60 * 60 * 1000; // 1小时
 
-  // 初始隐藏内容
-  content.style.display = 'none';
+  // 需要隐藏的元素列表
+  var elementsToHide = [
+    '.toc-sidebar',           // 目录
+    '.post-header',           // 文章头部（封面、标题、标签等）
+    '.post-content',          // 文章内容
+    '.post-navigation',       // 上一篇/下一篇
+    '.post-share'             // 分享按钮
+  ];
+
+  // 隐藏所有相关元素
+  function hideAllElements() {
+    elementsToHide.forEach(function(selector) {
+      var element = document.querySelector(selector);
+      if (element) {
+        element.style.display = 'none';
+      }
+    });
+  }
+
+  // 显示所有相关元素
+  function showAllElements() {
+    elementsToHide.forEach(function(selector) {
+      var element = document.querySelector(selector);
+      if (element) {
+        element.style.display = '';
+      }
+    });
+  }
+
+  // 初始隐藏所有元素
+  hideAllElements();
 
   // 解锁函数
   function unlock() {
     if (input.value === password) {
       overlay.style.display = 'none';
-      content.style.display = 'block';
-      
+      showAllElements();
+
       // 存储解锁状态和时间戳
       var unlockData = {
         unlocked: true,
@@ -102,12 +134,12 @@
     try {
       var data = JSON.parse(unlockData);
       var now = Date.now();
-      
+
       // 检查是否过期
       if (data.unlocked && (now - data.timestamp) < EXPIRY_TIME) {
-        // 未过期，直接显示内容
+        // 未过期，直接显示所有元素
         overlay.style.display = 'none';
-        content.style.display = 'block';
+        showAllElements();
       } else {
         // 已过期，清除存储的数据
         localStorage.removeItem('unlocked-' + window.location.pathname);
@@ -124,8 +156,12 @@
     if (e.key === 'Enter') unlock();
   });
 });
-</script><!-- 密码保护样式--><style>.password-overlay {
-  position: absolute;
+</script><!-- 密码保护样式--><style>.password-protect {
+  position: relative;
+}
+
+.password-overlay {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -135,7 +171,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 9999;
 }
 
 .password-box {
@@ -217,7 +253,7 @@
 window.tocConfig = {
   empty_toc_behavior: "placeholder"
 };
-</script><div class="post-navigation"><div class="post-nav next"><a href="/2026/01/09/Animator%E4%B8%8EAnimation%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/"><span class="nav-label">Next →</span><span class="nav-title">Animator与Animation底层实现剖析</span></a></div></div><div class="post-share"><h3 class="share-title">Share this article</h3><div class="share-buttons"><a class="share-btn twitter" href="https://twitter.com/intent/tweet?text=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90&amp;url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>Twitter</span></a><a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>Facebook</span></a><a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>LinkedIn</span></a><a class="share-btn wechat" href="#" data-wechat="/2026/01/21/%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90/"><span>微信</span></a><a class="share-btn qq" href="https://connect.qq.com/widget/shareqq/index.html?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F&amp;title=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90" target="_blank" rel="noopener"><span>QQ</span></a><a class="share-btn weibo" href="https://service.weibo.com/share/share.php?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F&amp;title=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90" target="_blank" rel="noopener"><span>微博</span></a><a class="share-btn copy" href="#" data-copy="/2026/01/21/%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90/"><span>Copy Link</span></a></div></div></article></div><!-- 添加背景图支持--><script>document.addEventListener('DOMContentLoaded', function() {
+</script><div class="post-navigation"><div class="post-nav prev"><a href="/2026/01/22/Distance-Match-To-Target/"><span class="nav-label">← Previous</span><span class="nav-title">Distance Match To Target</span></a></div><div class="post-nav next"><a href="/2026/01/09/Animator%E4%B8%8EAnimation%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0%E5%89%96%E6%9E%90/"><span class="nav-label">Next →</span><span class="nav-title">Animator与Animation底层实现剖析</span></a></div></div><div class="post-share"><h3 class="share-title">Share this article</h3><div class="share-buttons"><a class="share-btn twitter" href="https://twitter.com/intent/tweet?text=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90&amp;url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>Twitter</span></a><a class="share-btn facebook" href="https://www.facebook.com/sharer/sharer.php?u=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>Facebook</span></a><a class="share-btn linkedin" href="https://www.linkedin.com/sharing/share-offsite/?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F" target="_blank" rel="noopener"><span>LinkedIn</span></a><a class="share-btn wechat" href="#" data-wechat="/2026/01/21/%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90/"><span>微信</span></a><a class="share-btn qq" href="https://connect.qq.com/widget/shareqq/index.html?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F&amp;title=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90" target="_blank" rel="noopener"><span>QQ</span></a><a class="share-btn weibo" href="https://service.weibo.com/share/share.php?url=%2F2026%2F01%2F21%2F%25E6%259B%25B2%25E7%25BA%25BF%25E5%25B1%259E%25E6%2580%25A7%25E5%2588%2586%25E6%259E%2590%2F&amp;title=%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90" target="_blank" rel="noopener"><span>微博</span></a><a class="share-btn copy" href="#" data-copy="/2026/01/21/%E6%9B%B2%E7%BA%BF%E5%B1%9E%E6%80%A7%E5%88%86%E6%9E%90/"><span>Copy Link</span></a></div></div></article></div><!-- 添加背景图支持--><script>document.addEventListener('DOMContentLoaded', function() {
   document.body.classList.add('has-post-background');
   document.body.style.setProperty('--post-background-image', 'url(https://w.wallhaven.cc/full/k8/wallhaven-k881zd.jpg)');
 });
@@ -270,6 +306,7 @@ window.tocConfig = {
 <script>window.theme = {
   features: JSON.stringify(theme.features),
   code_block: JSON.stringify(theme.code_block),
+  code_mermaid_fold: JSON.stringify(theme.code_mermaid_fold),
   ai_summary: JSON.stringify(theme.ai_summary),
   categories: JSON.stringify(theme.categories)
 };
@@ -288,7 +325,11 @@ window.tocConfig = {
     });
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+</script><!-- 在 Mermaid 初始化后加载折叠功能-->
+<script src="/js/code-mermaid-fold.js"></script>
+<!-- 加载 Mermaid 放大镜功能-->
+<script src="/js/mermaid-magnifier.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
   // 配置 marked.js
   if (window.marked) {
     marked.setOptions({

@@ -35,6 +35,10 @@
 <link rel="stylesheet" href="/css/ai-theme.css">
 
 <link rel="stylesheet" href="/css/loading-animation.css">
+
+<link rel="stylesheet" href="/css/code-mermaid-fold.css">
+
+<link rel="stylesheet" href="/css/mermaid-magnifier.css">
 <!-- 条件加载关于页面样式--><style>:root {
   --primary-color: #1a1a1a;
   --secondary-color: #666666;
@@ -98,6 +102,7 @@ Hexo下载首先照着Hexo文档来安装好node.js环境，之后安装Hexo
 <script>window.theme = {
   features: JSON.stringify(theme.features),
   code_block: JSON.stringify(theme.code_block),
+  code_mermaid_fold: JSON.stringify(theme.code_mermaid_fold),
   ai_summary: JSON.stringify(theme.ai_summary),
   categories: JSON.stringify(theme.categories)
 };
@@ -116,7 +121,11 @@ Hexo下载首先照着Hexo文档来安装好node.js环境，之后安装Hexo
     });
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+</script><!-- 在 Mermaid 初始化后加载折叠功能-->
+<script src="/js/code-mermaid-fold.js"></script>
+<!-- 加载 Mermaid 放大镜功能-->
+<script src="/js/mermaid-magnifier.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
   // 配置 marked.js
   if (window.marked) {
     marked.setOptions({

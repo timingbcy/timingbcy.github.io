@@ -18,20 +18,60 @@ pre.mermaid {
 }
 
 .toc-sidebar {
-  position: sticky;
+  position: fixed;
   top: 100px;
-  height: calc(100vh - 120px);
-  width: 220px;
+  height: calc(100vh - 140px);
+  width: 250px;
   flex-shrink: 0;
-  margin-right: 30px;
   overflow-y: auto;
-  align-self: flex-start;
-  z-index: 10;
+  overflow-x: hidden;
+  z-index: 100;
   background: var(--card-background-color);
-  border-right: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
   padding: 20px;
   border-radius: var(--radius-md);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  /* 自定义滚动条样式 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) var(--background-color);
+}
+
+/* 默认位置：基于屏幕中心计算 */
+.toc-sidebar {
+  left: calc(50% - 600px);
+}
+
+/* 响应式调整：确保目录位置正确 */
+@media (min-width: 1025px) and (max-width: 1400px) {
+  .toc-sidebar {
+    left: calc(50% - 600px);
+  }
+}
+
+@media (min-width: 1401px) {
+  .toc-sidebar {
+    left: calc(50% - 600px);
+  }
+}
+
+.toc-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc-sidebar::-webkit-scrollbar-track {
+  background: var(--background-color);
+  border-radius: 3px;
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb {
+  background: var(--accent-color);
+  border-radius: 3px;
+  transition: background var(--transition-fast);
+}
+
+.toc-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ff5252;
 }
 
 .toc-container {
@@ -127,6 +167,18 @@ pre.mermaid {
   }
 }
 
+/* 调整文章容器，为固定位置的目录留出空间 */
+@media (min-width: 1025px) {
+  .post-wrapper {
+    position: relative;
+  }
+
+  .post-container {
+    margin-left: 290px; /* 目录宽度(250px) + 间距(40px) */
+    max-width: 910px; /* 1200px - 290px */
+  }
+}
+
 /* 移动端TOC按钮 */
 @media (max-width: 1024px) {
   .mobile-toc-toggle {
@@ -211,6 +263,44 @@ pre.mermaid {
 .mermaid .node path {
   pointer-events: none !important;
   cursor: default !important;
+}
+
+/* ===== 暗色模式样式 ===== */
+body.dark-mode .toc-sidebar {
+  background: #262626;
+  border-color: #3a3a3a;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .toc-sidebar::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+body.dark-mode .toc-sidebar::-webkit-scrollbar-thumb {
+  background: #ff6b6b;
+}
+
+body.dark-mode .toc-sidebar::-webkit-scrollbar-thumb:hover {
+  background: #ff8787;
+}
+
+body.dark-mode .toc-title {
+  color: var(--primary-color);
+}
+
+body.dark-mode .toc-content a {
+  color: var(--secondary-color);
+}
+
+body.dark-mode .toc-content a:hover,
+body.dark-mode .toc-content a.active {
+  color: var(--accent-color);
+  background-color: rgba(255, 107, 107, 0.15);
+}
+
+body.dark-mode .mobile-toc-panel {
+  background-color: #262626;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
 }
 
 .mermaid .edgeLabel {

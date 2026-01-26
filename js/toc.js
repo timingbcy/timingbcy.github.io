@@ -4,6 +4,29 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
+  // 确保目录位置正确
+  const tocSidebar = document.querySelector('.toc-sidebar');
+  if (tocSidebar) {
+    // 动态计算目录位置
+    const updateTocPosition = function() {
+      const viewportWidth = window.innerWidth;
+      if (viewportWidth >= 1025) {
+        // 桌面端：基于屏幕中心计算位置
+        const centerOffset = Math.max(250, (viewportWidth - 1200) / 2);
+        tocSidebar.style.left = (viewportWidth / 2 - 600) + 'px';
+      } else {
+        // 移动端：隐藏目录
+        tocSidebar.style.display = 'none';
+      }
+    };
+
+    // 初始化位置
+    updateTocPosition();
+
+    // 监听窗口大小变化
+    window.addEventListener('resize', updateTocPosition);
+  }
+
   // 获取文章内容区域
   const postContent = document.querySelector('.post-content');
 

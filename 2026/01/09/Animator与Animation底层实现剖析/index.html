@@ -35,6 +35,10 @@
 <link rel="stylesheet" href="/css/ai-theme.css">
 
 <link rel="stylesheet" href="/css/loading-animation.css">
+
+<link rel="stylesheet" href="/css/code-mermaid-fold.css">
+
+<link rel="stylesheet" href="/css/mermaid-magnifier.css">
 <!-- 条件加载关于页面样式--><style>:root {
   --primary-color: #1a1a1a;
   --secondary-color: #666666;
@@ -246,22 +250,50 @@
   var input = document.querySelector('.password-input');
   var submit = document.querySelector('.password-submit');
   var error = document.querySelector('.password-error');
-  var content = document.querySelector('.post-content');
-  
+
   // 配置：密码有效期（毫秒）
   // 24小时 = 24 * 60 * 60 * 1000 = 86400000
   // 7天 = 7 * 24 * 60 * 60 * 1000 = 604800000
   var EXPIRY_TIME = 60 * 60 * 1000; // 1小时
 
-  // 初始隐藏内容
-  content.style.display = 'none';
+  // 需要隐藏的元素列表
+  var elementsToHide = [
+    '.toc-sidebar',           // 目录
+    '.post-header',           // 文章头部（封面、标题、标签等）
+    '.post-content',          // 文章内容
+    '.post-navigation',       // 上一篇/下一篇
+    '.post-share'             // 分享按钮
+  ];
+
+  // 隐藏所有相关元素
+  function hideAllElements() {
+    elementsToHide.forEach(function(selector) {
+      var element = document.querySelector(selector);
+      if (element) {
+        element.style.display = 'none';
+      }
+    });
+  }
+
+  // 显示所有相关元素
+  function showAllElements() {
+    elementsToHide.forEach(function(selector) {
+      var element = document.querySelector(selector);
+      if (element) {
+        element.style.display = '';
+      }
+    });
+  }
+
+  // 初始隐藏所有元素
+  hideAllElements();
 
   // 解锁函数
   function unlock() {
     if (input.value === password) {
       overlay.style.display = 'none';
-      content.style.display = 'block';
-      
+      showAllElements();
+
       // 存储解锁状态和时间戳
       var unlockData = {
         unlocked: true,
@@ -282,12 +314,12 @@
     try {
       var data = JSON.parse(unlockData);
       var now = Date.now();
-      
+
       // 检查是否过期
       if (data.unlocked && (now - data.timestamp) < EXPIRY_TIME) {
-        // 未过期，直接显示内容
+        // 未过期，直接显示所有元素
         overlay.style.display = 'none';
-        content.style.display = 'block';
+        showAllElements();
       } else {
         // 已过期，清除存储的数据
         localStorage.removeItem('unlocked-' + window.location.pathname);
@@ -304,8 +336,12 @@
     if (e.key === 'Enter') unlock();
   });
 });
-</script><!-- 密码保护样式--><style>.password-overlay {
-  position: absolute;
+</script><!-- 密码保护样式--><style>.password-protect {
+  position: relative;
+}
+
+.password-overlay {
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -315,7 +351,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 100;
+  z-index: 9999;
 }
 
 .password-box {
@@ -446,6 +482,7 @@ window.tocConfig = {
 <script>window.theme = {
   features: JSON.stringify(theme.features),
   code_block: JSON.stringify(theme.code_block),
+  code_mermaid_fold: JSON.stringify(theme.code_mermaid_fold),
   ai_summary: JSON.stringify(theme.ai_summary),
   categories: JSON.stringify(theme.categories)
 };
@@ -464,7 +501,11 @@ window.tocConfig = {
     });
   }
 });
-</script><script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
+</script><!-- 在 Mermaid 初始化后加载折叠功能-->
+<script src="/js/code-mermaid-fold.js"></script>
+<!-- 加载 Mermaid 放大镜功能-->
+<script src="/js/mermaid-magnifier.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked@9.1.6/marked.min.js"></script><script>document.addEventListener('DOMContentLoaded', function() {
   // 配置 marked.js
   if (window.marked) {
     marked.setOptions({
