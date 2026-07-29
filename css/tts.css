@@ -1,0 +1,488 @@
+/*
+ * TTS 文本朗读功能样式
+ */
+
+/* ===== 固定的朗读按钮（右下角）===== */
+.fixed-tts-toggle {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  z-index: 9999;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fixed-tts-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+}
+
+.fixed-tts-toggle:active {
+  transform: scale(0.95);
+}
+
+/* 暗黑模式下的样式 */
+.dark-mode .fixed-tts-toggle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+}
+
+/* 朗读时的动画效果 */
+.fixed-tts-toggle.reading {
+  animation: ttsPulse 1.5s ease-in-out infinite;
+}
+
+/* ===== 侧边栏朗读按钮 ===== */
+.toc-tts-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.toc-tts-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.toc-tts-toggle:active {
+  transform: translateY(0);
+}
+
+/* 暗黑模式下的样式 */
+.dark-mode .toc-tts-toggle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* ===== 朗读控制面板 ===== */
+.tts-control-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 400px;
+  max-width: 90vw;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tts-control-panel.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* 暗黑模式下的面板 */
+.dark-mode .tts-control-panel {
+  background: #2d2d2d;
+  color: #e0e0e0;
+}
+
+/* 面板头部 */
+.tts-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.dark-mode .tts-panel-header {
+  border-bottom-color: #404040;
+}
+
+.tts-panel-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.dark-mode .tts-panel-title {
+  color: #e0e0e0;
+}
+
+.tts-panel-close {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tts-panel-close:hover {
+  background: #e0e0e0;
+  transform: rotate(90deg);
+}
+
+.dark-mode .tts-panel-close {
+  background: #404040;
+  color: #e0e0e0;
+}
+
+.dark-mode .tts-panel-close:hover {
+  background: #505050;
+}
+
+/* 面板内容 */
+.tts-panel-content {
+  padding: 24px;
+}
+
+/* 控制按钮区域 */
+.tts-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.tts-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 12px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tts-btn i {
+  font-size: 24px;
+}
+
+.tts-btn span {
+  font-size: 12px;
+}
+
+.tts-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 朗读按钮 */
+.tts-play-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.tts-play-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* 暂停按钮 */
+.tts-pause-btn {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.dark-mode .tts-pause-btn {
+  background: #404040;
+  color: #e0e0e0;
+}
+
+.tts-pause-btn:hover:not(:disabled) {
+  background: #e0e0e0;
+}
+
+.dark-mode .tts-pause-btn:hover:not(:disabled) {
+  background: #505050;
+}
+
+/* 停止按钮 */
+.tts-stop-btn {
+  background: #ff6b6b;
+  color: white;
+}
+
+.tts-stop-btn:hover:not(:disabled) {
+  background: #ff5252;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+}
+
+/* 设置区域 */
+.tts-settings {
+  margin-bottom: 24px;
+}
+
+.tts-setting-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tts-setting-item:last-child {
+  margin-bottom: 0;
+}
+
+.tts-setting-item span:first-child {
+  min-width: 50px;
+  font-size: 14px;
+  color: #666;
+}
+
+.dark-mode .tts-setting-item span:first-child {
+  color: #aaa;
+}
+
+.tts-setting-item input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  outline: none;
+}
+
+.dark-mode .tts-setting-item input[type="range"] {
+  background: #404040;
+}
+
+.tts-setting-item input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.tts-setting-item input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.tts-setting-item input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+.tts-setting-item input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.tts-setting-item span:last-child {
+  min-width: 50px;
+  text-align: right;
+  font-size: 14px;
+  color: #667eea;
+  font-weight: 600;
+}
+
+/* 进度条 */
+.tts-progress {
+  margin-top: 20px;
+}
+
+.tts-progress-bar {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+
+.dark-mode .tts-progress-bar {
+  background: #404040;
+}
+
+.tts-progress-current {
+  height: 100%;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.tts-progress-text {
+  text-align: center;
+  font-size: 12px;
+  color: #999;
+}
+
+.dark-mode .tts-progress-text {
+  color: #666;
+}
+
+/* ===== 段落朗读按钮 ===== */
+.paragraph-tts-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+/* 鼠标悬停在段落上时显示按钮 */
+p:hover .paragraph-tts-btn,
+h1:hover .paragraph-tts-btn,
+h2:hover .paragraph-tts-btn,
+h3:hover .paragraph-tts-btn,
+h4:hover .paragraph-tts-btn,
+h5:hover .paragraph-tts-btn,
+h6:hover .paragraph-tts-btn,
+li:hover .paragraph-tts-btn {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.paragraph-tts-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(102, 126, 234, 0.5);
+}
+
+.paragraph-tts-btn:active {
+  transform: scale(0.95);
+}
+
+/* 暗黑模式下的段落按钮 */
+.dark-mode .paragraph-tts-btn {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* ===== 朗读时的高亮效果 ===== */
+.tts-reading {
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 4px;
+  padding: 4px 8px;
+  margin: -4px -8px;
+}
+
+.dark-mode .tts-reading {
+  background: rgba(102, 126, 234, 0.2);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .tts-control-panel {
+    width: 95vw;
+    max-width: 400px;
+  }
+
+  .tts-panel-content {
+    padding: 20px;
+  }
+
+  .tts-controls {
+    gap: 8px;
+  }
+
+  .tts-btn {
+    padding: 12px 8px;
+  }
+
+  .tts-btn i {
+    font-size: 20px;
+  }
+
+  .tts-btn span {
+    font-size: 11px;
+  }
+
+  .paragraph-tts-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 12px;
+  }
+
+  .fixed-tts-toggle {
+    bottom: 70px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+/* ===== 动画效果 ===== */
+@keyframes ttsPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.tts-btn.reading {
+  animation: ttsPulse 1.5s ease-in-out infinite;
+}
+
+/* 面板遮罩层 */
+.tts-panel-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.tts-panel-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}

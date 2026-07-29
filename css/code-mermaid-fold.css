@@ -1,0 +1,266 @@
+/**
+ * Code Block and Mermaid Diagram Folding Styles
+ * 代码块和 Mermaid 图表折叠样式
+ */
+
+/* ===== 通用折叠包装器样式 ===== */
+.fold-wrapper {
+  position: relative;
+  margin: 1rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+/* ===== 代码块包装器样式 ===== */
+.code-wrapper {
+  background-color: #1a1e24;
+  border: 1px solid #2d333b;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.code-wrapper pre,
+.code-wrapper figure.highlight {
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* ===== Mermaid 图表包装器样式 ===== */
+.mermaid-wrapper {
+  background-color: #f8f9fa;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.mermaid-wrapper .mermaid {
+  margin: 0;
+  padding: 1rem;
+}
+
+/* ===== 折叠状态样式 ===== */
+.fold-wrapper.collapsed {
+  max-height: var(--fold-max-height, 300px);
+  overflow: hidden;
+}
+
+.fold-wrapper.collapsed::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* 代码块折叠遮罩 */
+.code-wrapper.collapsed::after {
+  background: linear-gradient(transparent, #1a1e24);
+}
+
+/* Mermaid 图表折叠遮罩 */
+.mermaid-wrapper.collapsed::after {
+  background: linear-gradient(transparent, #f8f9fa);
+}
+
+/* ===== 展开状态样式 ===== */
+.fold-wrapper.expanded {
+  max-height: none;
+}
+
+/* ===== 折叠按钮样式 ===== */
+.fold-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 10;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fold-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.fold-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
+}
+
+/* 按钮文本 */
+.fold-button-text {
+  font-weight: 500;
+}
+
+/* 按钮图标 */
+.fold-button-icon {
+  font-size: 12px;
+  transition: transform 0.3s ease;
+  display: inline-block;
+}
+
+/* Mermaid 图表的按钮样式 */
+.mermaid-wrapper .fold-button {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+}
+
+.mermaid-wrapper .fold-button:hover {
+  background: linear-gradient(135deg, #f5576c 0%, #f093fb 100%);
+  box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+/* ===== 暗色模式样式 ===== */
+body.dark-mode .code-wrapper {
+  background-color: #2a2a2a;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .code-wrapper.collapsed::after {
+  background: linear-gradient(transparent, #2a2a2a);
+}
+
+body.dark-mode .mermaid-wrapper {
+  background-color: #1a1a1a;
+  border-color: #3a3a3a;
+}
+
+body.dark-mode .mermaid-wrapper.collapsed::after {
+  background: linear-gradient(transparent, #1a1a1a);
+}
+
+/* ===== 响应式设计 ===== */
+@media (max-width: 768px) {
+  .fold-button {
+    padding: 6px 12px;
+    font-size: 12px;
+    bottom: 8px;
+    right: 8px;
+  }
+  
+  .fold-wrapper.collapsed {
+    max-height: calc(var(--fold-max-height, 300px) * 0.8);
+  }
+  
+  .fold-wrapper.collapsed::after {
+    height: 50px;
+  }
+}
+
+/* ===== 平滑过渡 ===== */
+.fold-wrapper,
+.fold-button,
+.fold-button-icon {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== 无障碍样式 ===== */
+.fold-button:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+.fold-button:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* ===== 打印样式 ===== */
+@media print {
+  .fold-wrapper {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+  
+  .fold-wrapper.collapsed::after {
+    display: none;
+  }
+  
+  .fold-button {
+    display: none;
+  }
+}
+
+/* ===== 动画效果 ===== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fold-wrapper.expanded .fold-button {
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===== 自定义不同类型的高度 ===== */
+.code-wrapper.collapsed {
+  --fold-max-height: 300px;
+}
+
+.mermaid-wrapper.collapsed {
+  --fold-max-height: 400px;
+}
+
+/* ===== 滚动条样式 ===== */
+.code-wrapper pre::-webkit-scrollbar,
+.mermaid-wrapper .mermaid::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.code-wrapper pre::-webkit-scrollbar-track,
+.mermaid-wrapper .mermaid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-wrapper pre::-webkit-scrollbar-thumb {
+  background: #4a5568;
+  border-radius: 4px;
+}
+
+.code-wrapper pre::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+.mermaid-wrapper .mermaid::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+.mermaid-wrapper .mermaid::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
+
+/* ===== 暗色模式滚动条 ===== */
+body.dark-mode .code-wrapper pre::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+body.dark-mode .code-wrapper pre::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
+
+body.dark-mode .mermaid-wrapper .mermaid::-webkit-scrollbar-thumb {
+  background: #4a5568;
+}
+
+body.dark-mode .mermaid-wrapper .mermaid::-webkit-scrollbar-thumb:hover {
+  background: #718096;
+}
